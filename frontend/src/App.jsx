@@ -1,14 +1,12 @@
-import { useState } from "react";
-import "./App.css";
-import Header from "./components/header/Header";
 import HomePage from "./pages/home-page/HomePage";
+import { Route, Routes } from "react-router";
+import "./App.css";
 
 function App() {
     return (
-        <>
-            <Header />
-            <HomePage />
-        </>
+        <Routes>
+            <Route index element={<HomePage />} />
+        </Routes>
     );
 }
 
