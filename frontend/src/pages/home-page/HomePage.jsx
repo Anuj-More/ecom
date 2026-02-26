@@ -4,6 +4,7 @@ import "./HomePage.css";
 export default function HomePage() {
     return (
         <>
+            <title>Ecom</title>
             <Header />
 
             <div className="home-page">
