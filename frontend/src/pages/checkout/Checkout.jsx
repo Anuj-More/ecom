@@ -11,7 +11,6 @@ export default function Checkout({ cart }) {
     useEffect(() => {
         axios.get("/api/delivery-options?expand=estimatedDeliveryTime").then((response) => {
             setDeliveryOptions(response.data);
-            console.log(response.data);
         });
     }, []);
 
@@ -25,14 +24,18 @@ export default function Checkout({ cart }) {
 
                 <div className="checkout-grid">
                     <div className="order-summary">
-                        {cart.map((cartItem) => {
+                        {deliveryOptions.length > 0 && cart.map((cartItem) => {
+                            const selectedDeliveryOption = deliveryOptions.find((deliveryOption) => {
+                                return deliveryOption.id === cartItem.deliveryOptionId
+                            });
+                            
                             return (
                                 <div
                                     key={cartItem.id}
                                     className="cart-item-container"
                                 >
                                     <div className="delivery-date">
-                                        Delivery date: Wednesday, June 15
+                                        Delivery date: {dayjs(selectedDeliveryOption.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
                                     </div>
 
                                     <div className="cart-item-details-grid">
@@ -82,6 +85,7 @@ export default function Checkout({ cart }) {
                                                             <input
                                                                 type="radio"
                                                                 className="delivery-option-input"
+                                                                checked={deliveryOption.id === cartItem.deliveryOptionId}
                                                                 name={`delivery-option-${cartItem.id}`}
                                                             />
                                                             <div>
