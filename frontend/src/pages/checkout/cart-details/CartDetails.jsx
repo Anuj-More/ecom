@@ -51,17 +51,24 @@ export default function CartDetails({ deliveryOptions, cart, loadCart }) {
                                         <span className="update-quantity-link link-primary">
                                             Update
                                         </span>
-                                        <span className="delete-quantity-link link-primary" onClick={async () => {
-                                            await axios.delete(`/api/cart-items/${cartItem.product.id}`);
-                                            await loadCart();
-                                        }}>
+                                        <span
+                                            className="delete-quantity-link link-primary"
+                                            onClick={async () => {
+                                                await axios.delete(
+                                                    `/api/cart-items/${cartItem.product.id}`,
+                                                );
+                                                await loadCart();
+                                            }}
+                                        >
                                             Delete
                                         </span>
                                     </div>
                                 </div>
 
                                 <DeliveryOptions
-                                    deliveryOptions={deliveryOptions} cartItem={cartItem}
+                                    deliveryOptions={deliveryOptions}
+                                    cartItem={cartItem}
+                                    loadCart={loadCart}
                                 />
                             </div>
                         </div>
