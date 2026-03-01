@@ -5,6 +5,7 @@ import "./App.css";
 import HomePage from "./pages/home-page/HomePage";
 import Checkout from "./pages/checkout/Checkout";
 import Orders from "./pages/orders/Orders";
+import Tracking from "./pages/tracking/Tracking";
 
 function App() {
     const [cart, setCart] = useState([]);
@@ -20,6 +21,7 @@ function App() {
             <Route index element={<HomePage cart={cart} setCart={setCart}/>} />
             <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart}/>} />
             <Route path="/orders" element={<Orders cart={cart} />} />
+            <Route path="/tracking" element={<Tracking cart={cart} />} />
         </Routes>
     );
 }

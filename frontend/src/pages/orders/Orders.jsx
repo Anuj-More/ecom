@@ -4,6 +4,7 @@ import "./Orders.css";
 import { Fragment, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import formatProductPrice from "../../utility/formatProductPrice";
+import { Link } from "react-router";
 
 export default function Orders({ cart }) {
     const [orders, setOrders] = useState([]);
@@ -89,11 +90,11 @@ export default function Orders({ cart }) {
                                                 </div>
 
                                                 <div className="product-actions">
-                                                    <a href="tracking.html">
+                                                    <Link to="/tracking">
                                                         <button className="track-package-button button-secondary">
                                                             Track package
                                                         </button>
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                             </Fragment>
                                         );
