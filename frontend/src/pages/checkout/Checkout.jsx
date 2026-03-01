@@ -6,7 +6,7 @@ import "./Checkout.css";
 import CartDetails from "./cart-details/CartDetails";
 import PaymentSummary from "./payment-summary/PaymentSummary";
 
-export default function Checkout({ cart }) {
+export default function Checkout({ cart, loadCart }) {
     const [deliveryOptions, setDeliveryOptions] = useState([]);
     const [paymentSummary, setpaymentSummary] = useState(null);
 
@@ -34,6 +34,7 @@ export default function Checkout({ cart }) {
                     <CartDetails
                         deliveryOptions={deliveryOptions}
                         cart={cart}
+                        loadCart={loadCart}
                     />
 
                     {paymentSummary && (
