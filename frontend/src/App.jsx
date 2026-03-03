@@ -9,14 +9,22 @@ import Tracking from "./pages/tracking/Tracking";
 
 function App() {
     const [cart, setCart] = useState([]);
+    const [products, setProducts] = useState([]);
 
     async function loadCart() {
         const response = await axios.get("/api/cart-items?expand=product");
         setCart(response.data);
     }
 
+    async function fetchAllProducts() {
+        axios.get("/api/products").then((response) => {
+            setProducts(response.data);
+        });
+    }
+
     useEffect(() => {
         loadCart();
+        fetchAllProducts();
     }, []);
 
     return (
@@ -28,6 +36,8 @@ function App() {
                         cart={cart}
                         setCart={setCart}
                         loadCart={loadCart}
+                        products={products}
+                        setProducts={setProducts}
                     />
                 }
             />
@@ -36,18 +46,27 @@ function App() {
                 element={
                     <Checkout
                         cart={cart}
-                        setCart={setCart}
+                        setProducts={setProducts}
                         loadCart={loadCart}
+                        fetchAllProducts={fetchAllProducts}
                     />
                 }
             />
             <Route
                 path="/orders"
-                element={<Orders cart={cart} loadCart={loadCart} />}
+                element={
+                    <Orders
+                        cart={cart}
+                        setProducts={setProducts}
+                        loadCart={loadCart}
+                        fetchAllProducts={fetchAllProducts}
+                    />
+                }
             />
             <Route
                 path="/tracking/:orderId/:productId"
-                element={<Tracking cart={cart} />}
+                element={<Tracking cart={cart} setProducts={setProducts} />}
+                fetchAllProducts={fetchAllProducts}
             />
         </Routes>
     );

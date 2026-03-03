@@ -1,12 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Header from "../../components/header/Header";
-import formatProductPrice from "../../utility/formatProductPrice";
 import "./Checkout.css";
 import CartDetails from "./cart-details/CartDetails";
 import PaymentSummary from "./payment-summary/PaymentSummary";
 
-export default function Checkout({ cart, loadCart }) {
+export default function Checkout({
+    cart,
+    setProducts,
+    loadCart,
+    fetchAllProducts,
+}) {
     const [deliveryOptions, setDeliveryOptions] = useState([]);
     const [paymentSummary, setpaymentSummary] = useState(null);
 
@@ -27,7 +31,11 @@ export default function Checkout({ cart, loadCart }) {
     return (
         <>
             <title>Checkout</title>
-            <Header cart={cart} />
+            <Header
+                cart={cart}
+                setProducts={setProducts}
+                fetchAllProducts={fetchAllProducts}
+            />
 
             <div className="checkout-page">
                 <div className="page-title">Review your order</div>

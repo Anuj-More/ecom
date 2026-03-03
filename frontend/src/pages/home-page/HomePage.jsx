@@ -1,22 +1,12 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import "./HomePage.css";
 import Header from "./../../components/header/Header";
 import ProductsGrid from "./ProductsGrid";
 
-export default function HomePage({ cart, loadCart }) {
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        axios.get("/api/products").then((response) => {
-            setProducts(response.data);
-        });
-    }, []);
-
+export default function HomePage({ cart, loadCart, products, setProducts }) {
     return (
         <>
             <title>Ecom</title>
-            <Header cart={cart} />
+            <Header cart={cart} setProducts={setProducts} />
 
             <div className="home-page">
                 <ProductsGrid products={products} loadCart={loadCart} />

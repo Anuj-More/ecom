@@ -1,11 +1,11 @@
 import { Link, useParams } from "react-router";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../../components/header/Header";
 import "./Tracking.css";
 import dayjs from "dayjs";
 
-export default function Tracking({ cart }) {
+export default function Tracking({ cart, setProducts, fetchAllProducts }) {
     const { orderId, productId } = useParams();
     const [order, setOrder] = useState(null);
 
@@ -38,7 +38,7 @@ export default function Tracking({ cart }) {
 
     return (
         <>
-            <Header cart={cart} />
+            <Header cart={cart} setProducts={setProducts} fetchAllProducts={fetchAllProducts} />
             <div className="tracking-page">
                 <div className="order-tracking">
                     <Link

@@ -1,17 +1,29 @@
-import { Link } from "react-router";
+import axios from "axios";
+import { Link, useNavigate } from "react-router";
 import "./Header.css";
+import { useRef } from "react";
 
-export default function Header({ cart }) {
+export default function Header({ cart, setProducts, fetchAllProducts }) {
+    const searchRef = useRef(null);
+    const navigate = useNavigate();
     let totalQuantity = 0;
 
-    cart.forEach(cartItem => {
+    async function searchProduct() {
+        navigate("/");
+        const response = await axios.get(
+            `/api/products/?search=${searchRef.current.value}`,
+        );
+        setProducts(response.data);
+    }
+
+    cart.forEach((cartItem) => {
         totalQuantity += cartItem.quantity;
     });
-    
+
     return (
         <div className="header">
             <div className="left-section">
-                <Link to="/" className="header-link">
+                <Link to="/" className="header-link" onClick={fetchAllProducts}>
                     <img className="logo" src="images/logo-white.png" />
                     <img
                         className="mobile-logo"
@@ -22,12 +34,13 @@ export default function Header({ cart }) {
 
             <div className="middle-section">
                 <input
+                    ref={searchRef}
                     className="search-bar"
                     type="text"
                     placeholder="Search"
                 />
 
-                <button className="search-button">
+                <button className="search-button" onClick={searchProduct}>
                     <img
                         className="search-icon"
                         src="images/icons/search-icon.png"
