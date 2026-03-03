@@ -16,11 +16,13 @@ export default function Checkout({ cart, loadCart }) {
             .then((response) => {
                 setDeliveryOptions(response.data);
             });
+    }, []);
 
+    useEffect(() => {
         axios.get("/api/payment-summary").then((response) => {
             setpaymentSummary(response.data);
         });
-    }, []);
+    }, [cart]);
 
     return (
         <>
